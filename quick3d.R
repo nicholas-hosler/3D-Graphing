@@ -1,28 +1,19 @@
-
-
-
 # 3D Plot script importing dta data 
 
-
-tryCatch(library(haven),error=function(cond){install.packages('haven');library(haven)}) 
-tryCatch(library(plot3D),error=function(cond){install.packages('plot3D');library(plot3D)}) 
+tryCatch(library(haven),error=function(cond){install.packages('haven');library(haven)}) # for reading DTA files
+tryCatch(library(plot3D),error=function(cond){install.packages('plot3D');library(plot3D)}) # 3D Plotting lib
 
 # reading in dta data and converting to csv format and reimporting (helps with standardization)
 data <- read_dta("Compustat_Max.dta")
 write.csv(data,"data.csv", row.names = FALSE)
 data <- read.csv("data.csv")
 
-
-
-
 x <- data$OPEXMKUP_PT_1d
 y <- data$prod_opex
 
-
 z <- data$ab90_ROIC_wogw3
 
-
-# Fake it til you make it
+# Test numbers
 # n = 5000
 # x = runif(n)
 # y = runif(n)
@@ -47,8 +38,6 @@ for (i in 1:length(x_l)){
 # Get the middle of each bin
 x_p = sapply(strsplit(gsub('\\(|]', '', x_l), ','), function(x) mean(as.numeric(x)))
 y_p = sapply(strsplit(gsub('\\(|]', '', y_l), ','), function(x) mean(as.numeric(x)))
-
-
 
 # Ploting using the provided bin as the z variable
 hist3D(x_p, y_p, z_p, bty = "g", border = "black", 
